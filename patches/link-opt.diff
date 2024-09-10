@@ -9,7 +9,7 @@ Subject: link-opt
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 7223b5c..a772922 100644
+index 55dbc31..d741602 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -3498,8 +3498,8 @@ then
