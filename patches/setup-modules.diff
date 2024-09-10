@@ -1,0 +1,43 @@
+From: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Date: Thu, 14 Feb 2019 18:59:14 -0800
+Subject: setup-modules
+
+---
+ Modules/Setup | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Modules/Setup b/Modules/Setup
+index ddf39e0..908a0bd 100644
+--- a/Modules/Setup
++++ b/Modules/Setup
+@@ -161,8 +161,8 @@ PYTHONPATH=$(COREPYTHONPATH)
+ #_sysconfig _sysconfig.c
+ 
+ # XML
+-#_elementtree _elementtree.c
+-#pyexpat pyexpat.c
++#_elementtree _elementtree.c -lexpat    # elementtree accelerator
++#pyexpat pyexpat.c -lexpat
+ 
+ # hashing builtins
+ #_blake2 blake2module.c -I$(srcdir)/Modules/_hacl/include Modules/_hacl/libHacl_Hash_Blake2.a
+@@ -194,7 +194,7 @@ PYTHONPATH=$(COREPYTHONPATH)
+ # Modules that require external libraries.
+ 
+ #_bz2 _bz2module.c -lbz2
+-#_ctypes _ctypes/_ctypes.c _ctypes/callbacks.c _ctypes/callproc.c _ctypes/stgdict.c _ctypes/cfield.c -ldl -lffi -DHAVE_FFI_PREP_CIF_VAR -DHAVE_FFI_PREP_CLOSURE_LOC -DHAVE_FFI_CLOSURE_ALLOC
++#_ctypes _ctypes/_ctypes.c _ctypes/callbacks.c _ctypes/callproc.c _ctypes/stgdict.c _ctypes/cfield.c _ctypes/malloc_closure.c -lffi
+ # The _dbm module supports NDBM, GDBM with compat module, and Berkeley DB.
+ #_dbm _dbmmodule.c -lgdbm_compat -DUSE_GDBM_COMPAT
+ #_gdbm _gdbmmodule.c -lgdbm
+@@ -207,8 +207,8 @@ PYTHONPATH=$(COREPYTHONPATH)
+ #readline readline.c -lreadline -ltermcap
+ 
+ # OpenSSL bindings
+-#_ssl _ssl.c $(OPENSSL_INCLUDES) $(OPENSSL_LDFLAGS) $(OPENSSL_LIBS)
+-#_hashlib _hashopenssl.c $(OPENSSL_INCLUDES) $(OPENSSL_LDFLAGS) -lcrypto
++#_ssl _ssl.c -lssl -lcrypto -DPy_BUILD_CORE_BUILTIN
++#_hashlib _hashopenssl.c -lssl -lcrypto -DPy_BUILD_CORE_BUILTIN
+ 
+ # To statically link OpenSSL:
+ # _ssl _ssl.c $(OPENSSL_INCLUDES) $(OPENSSL_LDFLAGS) \

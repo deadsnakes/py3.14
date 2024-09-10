@@ -1,0 +1,308 @@
+From: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Date: Thu, 14 Feb 2019 18:59:14 -0800
+Subject: distutils-install-layout
+
+---
+ Lib/pydoc.py              |  1 +
+ Lib/site.py               | 26 ++++++++++++++++----
+ Lib/sysconfig/__init__.py | 62 ++++++++++++++++++++++++++++++++++++++---------
+ Lib/test/test_site.py     |  6 ++---
+ Makefile.pre.in           |  2 +-
+ Modules/getpath.py        |  4 +--
+ configure                 | 10 ++++----
+ configure.ac              | 10 ++++----
+ 8 files changed, 88 insertions(+), 33 deletions(-)
+
+diff --git a/Lib/pydoc.py b/Lib/pydoc.py
+index 3bd3ab3..7cd3ffb 100644
+--- a/Lib/pydoc.py
++++ b/Lib/pydoc.py
+@@ -569,6 +569,7 @@ def getdocloc(self, object, basedir=sysconfig.get_path('stdlib')):
+                                  'marshal', 'posix', 'signal', 'sys',
+                                  '_thread', 'zipimport') or
+              (file.startswith(basedir) and
++              not file.startswith(os.path.join(basedir, 'dist-packages')) and
+               not file.startswith(os.path.join(basedir, 'site-packages')))) and
+             object.__name__ not in ('xml.etree', 'test.test_pydoc.pydoc_mod')):
+             if docloc.startswith(("http://", "https://")):
+diff --git a/Lib/site.py b/Lib/site.py
+index cafd3ab..7459a08 100644
+--- a/Lib/site.py
++++ b/Lib/site.py
+@@ -7,12 +7,18 @@
+ This will append site-specific paths to the module search path.  On
+ Unix (including Mac OSX), it starts with sys.prefix and
+ sys.exec_prefix (if different) and appends
+-lib/python<version>/site-packages.
++lib/python3/dist-packages.
+ On other platforms (such as Windows), it tries each of the
+ prefixes directly, as well as with lib/site-packages appended.  The
+ resulting directories, if they exist, are appended to sys.path, and
+ also inspected for path configuration files.
+ 
++For Debian and derivatives, this sys.path is augmented with directories
++for packages distributed within the distribution. Local addons go
++into /usr/local/lib/python<version>/dist-packages, Debian addons
++install into /usr/lib/python3/dist-packages.
++/usr/lib/python<version>/site-packages is not used.
++
+ If a file named "pyvenv.cfg" exists one directory above sys.executable,
+ sys.prefix and sys.exec_prefix are set to that directory and
+ it is also checked for site-packages (sys.base_prefix and
+@@ -404,10 +410,20 @@ def getsitepackages(prefixes=None):
+                 libdirs.append("lib")
+ 
+             for libdir in libdirs:
+-                path = os.path.join(prefix, libdir,
+-                                    f"{implementation}{ver[0]}.{ver[1]}{abi_thread}",
+-                                    "site-packages")
+-                sitepackages.append(path)
++                if 'VIRTUAL_ENV' in os.environ or sys.base_prefix != sys.prefix:
++                    sitepackages.append(os.path.join(prefix, libdir,
++                                                     f"{implementation}{ver[0]}.{ver[1]}{abi_thread}",
++                                                     "site-packages"))
++                sitepackages.append(os.path.join(prefix, f"local/{libdir}",
++                                                 f"{implementation}{ver[0]}.{ver[1]}{abi_thread}",
++                                                 "dist-packages"))
++                sitepackages.append(os.path.join(prefix, libdir,
++                                                 f"{implementation}{ver[0]}{abi_thread}",
++                                                 "dist-packages"))
++                # this one is deprecated for Debian
++                sitepackages.append(os.path.join(prefix, libdir,
++                                                 f"{implementation}{ver[0]}.{ver[1]}{abi_thread}",
++                                                 "dist-packages"))
+         else:
+             sitepackages.append(prefix)
+             sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
+diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
+index 80aef34..9842fd0 100644
+--- a/Lib/sysconfig/__init__.py
++++ b/Lib/sysconfig/__init__.py
+@@ -27,8 +27,8 @@
+ 
+ _INSTALL_SCHEMES = {
+     'posix_prefix': {
+-        'stdlib': '{installed_base}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}',
+-        'platstdlib': '{platbase}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}',
++        'stdlib': '{installed_base}/{platlibdir}/{implementation_lower}{py_version_short}',
++        'platstdlib': '{platbase}/{platlibdir}/{implementation_lower}{py_version_short}',
+         'purelib': '{base}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
+         'platlib': '{platbase}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
+         'include':
+@@ -77,8 +77,8 @@
+     # Downstream distributors who patch posix_prefix/nt scheme are encouraged to
+     # leave the following schemes unchanged
+     'posix_venv': {
+-        'stdlib': '{installed_base}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}',
+-        'platstdlib': '{platbase}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}',
++        'stdlib': '{installed_base}/{platlibdir}/{implementation_lower}{py_version_short}',
++        'platstdlib': '{platbase}/{platlibdir}/{implementation_lower}{py_version_short}',
+         'purelib': '{base}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
+         'platlib': '{platbase}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
+         'include':
+@@ -98,6 +98,30 @@
+         'scripts': '{base}/Scripts',
+         'data': '{base}',
+         },
++    'deb_system': {
++        'stdlib': '{installed_base}/lib/python{py_version_short}',
++        'platstdlib': '{platbase}/lib/python{py_version_short}',
++        'purelib': '{base}/lib/python3{abi_thread}/dist-packages',
++        'platlib': '{platbase}/lib/python3{abi_thread}/dist-packages',
++        'include':
++            '{installed_base}/include/python{py_version_short}{abiflags}',
++        'platinclude':
++            '{installed_platbase}/include/python{py_version_short}{abiflags}',
++        'scripts': '{base}/bin',
++        'data': '{base}',
++        },
++    'posix_local': {
++        'stdlib': '{installed_base}/lib/python{py_version_short}',
++        'platstdlib': '{platbase}/lib/python{py_version_short}',
++        'purelib': '{base}/local/lib/python{py_version_short}{abi_thread}/dist-packages',
++        'platlib': '{platbase}/local/lib/python{py_version_short}{abi_thread}/dist-packages',
++        'include':
++            '{installed_base}/include/python{py_version_short}{abiflags}',
++        'platinclude':
++            '{installed_platbase}/include/python{py_version_short}{abiflags}',
++        'scripts': '{base}/local/bin',
++        'data': '{base}/local',
++        },
+     }
+ 
+ # For the OS-native venv scheme, we essentially provide an alias:
+@@ -148,8 +172,8 @@ def joinuser(*args):
+             'data': '{userbase}',
+             },
+         'posix_user': {
+-            'stdlib': '{userbase}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}',
+-            'platstdlib': '{userbase}/{platlibdir}/{implementation_lower}{py_version_short}{abi_thread}',
++            'stdlib': '{userbase}/{platlibdir}/{implementation_lower}{py_version_short}',
++            'platstdlib': '{userbase}/{platlibdir}/{implementation_lower}{py_version_short}',
+             'purelib': '{userbase}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
+             'platlib': '{userbase}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
+             'include': '{userbase}/include/{implementation_lower}{py_version_short}{abi_thread}',
+@@ -292,12 +316,26 @@ def _get_preferred_schemes():
+             'home': 'posix_home',
+             'user': 'osx_framework_user',
+         }
+-
+-    return {
+-        'prefix': 'posix_prefix',
+-        'home': 'posix_home',
+-        'user': 'posix_user',
+-    }
++    # virtual environments
++    if hasattr(sys, 'real_prefix') or sys.base_prefix != sys.prefix:
++        return {
++            'prefix': 'venv',
++            'home': 'posix_home',
++            'user': 'posix_user',
++        }
++    # default to /usr for package builds, /usr/local otherwise
++    elif os.environ.get('DEB_PYTHON_INSTALL_LAYOUT') in ('deb', 'deb_system'):
++        return {
++            'prefix': 'deb_system',
++            'home': 'posix_home',
++            'user': 'posix_user',
++        }
++    else:
++        return {
++            'prefix': 'posix_local',
++            'home': 'posix_home',
++            'user': 'posix_user',
++        }
+ 
+ 
+ def get_preferred_scheme(key):
+diff --git a/Lib/test/test_site.py b/Lib/test/test_site.py
+index 035913c..c23db4f 100644
+--- a/Lib/test/test_site.py
++++ b/Lib/test/test_site.py
+@@ -326,16 +326,16 @@ def test_getsitepackages(self):
+         if os.sep == '/':
+             # OS X, Linux, FreeBSD, etc
+             if sys.platlibdir != "lib":
+-                self.assertEqual(len(dirs), 2)
++                self.assertEqual(len(dirs), 6)
+                 wanted = os.path.join('xoxo', sys.platlibdir,
+                                       f'python{sysconfig._get_python_version_abi()}',
+                                       'site-packages')
+                 self.assertEqual(dirs[0], wanted)
+             else:
+-                self.assertEqual(len(dirs), 1)
++                self.assertEqual(len(dirs), 3)
+             wanted = os.path.join('xoxo', 'lib',
+                                   f'python{sysconfig._get_python_version_abi()}',
+-                                  'site-packages')
++                                  'dist-packages')
+             self.assertEqual(dirs[-1], wanted)
+         else:
+             # other platforms
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index 46733d0..a260db9 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -159,7 +159,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
+ 
+ # Detailed destination directories
+ BINLIBDEST=	@BINLIBDEST@
+-LIBDEST=	$(SCRIPTDIR)/python$(VERSION)$(ABI_THREAD)
++LIBDEST=	$(SCRIPTDIR)/python$(VERSION)
+ INCLUDEPY=	$(INCLUDEDIR)/python$(LDVERSION)
+ CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
+ 
+diff --git a/Modules/getpath.py b/Modules/getpath.py
+index 1f1bfcb..411b6d7 100644
+--- a/Modules/getpath.py
++++ b/Modules/getpath.py
+@@ -179,9 +179,9 @@
+     BUILDDIR_TXT = 'pybuilddir.txt'
+     BUILD_LANDMARK = 'Modules/Setup.local'
+     DEFAULT_PROGRAM_NAME = f'python{VERSION_MAJOR}'
+-    STDLIB_SUBDIR = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}{ABI_THREAD}'
++    STDLIB_SUBDIR = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}'
+     STDLIB_LANDMARKS = [f'{STDLIB_SUBDIR}/os.py', f'{STDLIB_SUBDIR}/os.pyc']
+-    PLATSTDLIB_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}{ABI_THREAD}/lib-dynload'
++    PLATSTDLIB_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}/lib-dynload'
+     BUILDSTDLIB_LANDMARKS = ['Lib/os.py']
+     VENV_LANDMARK = 'pyvenv.cfg'
+     ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
+diff --git a/configure b/configure
+index 2e80448..f4186d8 100755
+--- a/configure
++++ b/configure
+@@ -24816,11 +24816,11 @@ fi
+ 
+ 
+ 
+-BINLIBDEST='$(LIBDIR)/python$(VERSION)$(ABI_THREAD)'
++BINLIBDEST='$(LIBDIR)/python$(VERSION)'
+ 
+ 
+ # Check for --with-platlibdir
+-# /usr/$PLATLIBDIR/python$(VERSION)$(ABI_THREAD)
++# /usr/$PLATLIBDIR/python$(VERSION)
+ 
+ PLATLIBDIR="lib"
+ { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for --with-platlibdir" >&5
+@@ -24839,7 +24839,7 @@ then
+   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ printf "%s\n" "yes" >&6; }
+   PLATLIBDIR="$withval"
+-  BINLIBDEST='${exec_prefix}/${PLATLIBDIR}/python$(VERSION)$(ABI_THREAD)'
++  BINLIBDEST='${exec_prefix}/${PLATLIBDIR}/python$(VERSION)'
+ else
+   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+ printf "%s\n" "no" >&6; }
+@@ -24853,9 +24853,9 @@ fi
+ 
+ 
+ if test x$PLATFORM_TRIPLET = x; then
+-  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}${ABI_THREAD}/config-${LDVERSION}"
++  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}/config-${LDVERSION}"
+ else
+-  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}${ABI_THREAD}/config-${LDVERSION}-${PLATFORM_TRIPLET}"
++  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}/config-${LDVERSION}-${PLATFORM_TRIPLET}"
+ fi
+ 
+ 
+diff --git a/configure.ac b/configure.ac
+index 38582d9..7223b5c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -6246,11 +6246,11 @@ fi
+ 
+ 
+ AC_SUBST([BINLIBDEST])
+-BINLIBDEST='$(LIBDIR)/python$(VERSION)$(ABI_THREAD)'
++BINLIBDEST='$(LIBDIR)/python$(VERSION)'
+ 
+ 
+ # Check for --with-platlibdir
+-# /usr/$PLATLIBDIR/python$(VERSION)$(ABI_THREAD)
++# /usr/$PLATLIBDIR/python$(VERSION)
+ AC_SUBST([PLATLIBDIR])
+ PLATLIBDIR="lib"
+ AC_MSG_CHECKING([for --with-platlibdir])
+@@ -6269,7 +6269,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
+ then
+   AC_MSG_RESULT([yes])
+   PLATLIBDIR="$withval"
+-  BINLIBDEST='${exec_prefix}/${PLATLIBDIR}/python$(VERSION)$(ABI_THREAD)'
++  BINLIBDEST='${exec_prefix}/${PLATLIBDIR}/python$(VERSION)'
+ else
+   AC_MSG_RESULT([no])
+ fi],
+@@ -6279,9 +6279,9 @@ fi],
+ dnl define LIBPL after ABIFLAGS and LDVERSION is defined.
+ AC_SUBST([PY_ENABLE_SHARED])
+ if test x$PLATFORM_TRIPLET = x; then
+-  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}${ABI_THREAD}/config-${LDVERSION}"
++  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}/config-${LDVERSION}"
+ else
+-  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}${ABI_THREAD}/config-${LDVERSION}-${PLATFORM_TRIPLET}"
++  LIBPL='$(prefix)'"/${PLATLIBDIR}/python${VERSION}/config-${LDVERSION}-${PLATFORM_TRIPLET}"
+ fi
+ AC_SUBST([LIBPL])
+ 

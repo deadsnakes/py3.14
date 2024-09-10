@@ -1,0 +1,38 @@
+From: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Date: Thu, 14 Feb 2019 18:59:14 -0800
+Subject: multiarch
+
+---
+ Lib/sysconfig/__init__.py | 6 ++++++
+ Makefile.pre.in           | 1 +
+ 2 files changed, 7 insertions(+)
+
+diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
+index 9842fd0..8d95ec3 100644
+--- a/Lib/sysconfig/__init__.py
++++ b/Lib/sysconfig/__init__.py
+@@ -528,6 +528,12 @@ def _init_config_vars():
+     # e.g., 't' for free-threaded or '' for default build
+     _CONFIG_VARS['abi_thread'] = 't' if _CONFIG_VARS.get('Py_GIL_DISABLED') else ''
+ 
++    multiarch = get_config_var('MULTIARCH')
++    if multiarch:
++        _CONFIG_VARS['multiarchsubdir'] = '/' + multiarch
++    else:
++        _CONFIG_VARS['multiarchsubdir'] = ''
++
+     # Always convert srcdir to an absolute path
+     srcdir = _CONFIG_VARS.get('srcdir', _PROJECT_BASE)
+     if os.name == 'posix':
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index a260db9..beec05f 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -1768,6 +1768,7 @@ Python/interpconfig.o: $(srcdir)/Python/interpconfig.c $(srcdir)/Python/config_c
+ 
+ Python/dynload_shlib.o: $(srcdir)/Python/dynload_shlib.c Makefile
+ 	$(CC) -c $(PY_CORE_CFLAGS) \
++		$(if $(MULTIARCH),-DMULTIARCH='"$(MULTIARCH)"') \
+ 		-DSOABI='"$(SOABI)"' \
+ 		-o $@ $(srcdir)/Python/dynload_shlib.c
+ 

@@ -1,0 +1,11 @@
+on:
+  schedule:
+    - cron: '45 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  main:
+    uses: deadsnakes/runbooks/.github/workflows/update-meta-gbp.yml@main
+    with:
+      dists-json: '["jammy", "noble"]'
+    secrets: inherit

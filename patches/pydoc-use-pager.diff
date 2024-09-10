@@ -1,0 +1,23 @@
+From: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Date: Thu, 14 Feb 2019 18:59:15 -0800
+Subject: pydoc-use-pager
+
+# DP: pydoc: use the pager command if available.
+# DP: pydoc: use the pager command if available.
+---
+ Lib/_pyrepl/pager.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Lib/_pyrepl/pager.py b/Lib/_pyrepl/pager.py
+index 66dcd99..1fddc63 100644
+--- a/Lib/_pyrepl/pager.py
++++ b/Lib/_pyrepl/pager.py
+@@ -36,6 +36,8 @@ def get_pager() -> Pager:
+         return plain_pager
+     if sys.platform == 'win32':
+         return lambda text, title='': tempfile_pager(plain(text), 'more <')
++    if hasattr(os, 'system') and os.system('(pager) 2>/dev/null') == 0:
++        return lambda text, title='': pipe_pager(text, 'pager', title)
+     if hasattr(os, 'system') and os.system('(less) 2>/dev/null') == 0:
+         return lambda text, title='': pipe_pager(text, 'less', title)
+ 

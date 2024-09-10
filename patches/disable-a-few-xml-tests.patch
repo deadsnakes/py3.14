@@ -1,0 +1,46 @@
+From: Anthony Sottile <asottile@umich.edu>
+Date: Sun, 14 Apr 2024 12:18:19 -0400
+Subject: disable a few xml tests
+
+only needed on jammy and older
+---
+ Lib/test/test_sax.py       | 1 +
+ Lib/test/test_xml_etree.py | 3 +++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/Lib/test/test_sax.py b/Lib/test/test_sax.py
+index 0d0f86c..a5dcf37 100644
+--- a/Lib/test/test_sax.py
++++ b/Lib/test/test_sax.py
+@@ -1241,6 +1241,7 @@ def test_flush_reparse_deferral_enabled(self):
+ 
+         self.assertEqual(result.getvalue(), start + b"<doc></doc>")
+ 
++    @unittest.skip("disabled test due to libexpat1 mismatch")
+     def test_flush_reparse_deferral_disabled(self):
+         result = BytesIO()
+         xmlgen = XMLGenerator(result)
+diff --git a/Lib/test/test_xml_etree.py b/Lib/test/test_xml_etree.py
+index ae06a9c..9f23bf6 100644
+--- a/Lib/test/test_xml_etree.py
++++ b/Lib/test/test_xml_etree.py
+@@ -1504,9 +1504,11 @@ def test_simple_xml(self, chunk_size=None, flush=False):
+         self.assert_event_tags(parser, [('end', 'root')])
+         self.assertIsNone(parser.close())
+ 
++    @unittest.skip("disabled test due to libexpat1 mismatch")
+     def test_simple_xml_chunk_1(self):
+         self.test_simple_xml(chunk_size=1, flush=True)
+ 
++    @unittest.skip("disabled test due to libexpat1 mismatch")
+     def test_simple_xml_chunk_5(self):
+         self.test_simple_xml(chunk_size=5, flush=True)
+ 
+@@ -1731,6 +1733,7 @@ def test_flush_reparse_deferral_enabled(self):
+ 
+         self.assert_event_tags(parser, [('end', 'doc')])
+ 
++    @unittest.skip("disabled test due to libexpat1 mismatch")
+     def test_flush_reparse_deferral_disabled(self):
+         parser = ET.XMLPullParser(events=('start', 'end'))
+ 
