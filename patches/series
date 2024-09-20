@@ -12,7 +12,6 @@ ctypes-arm.diff
 multiarch.diff
 tempfile-minimal.diff
 reproducible-buildinfo.diff
-pydoc-use-pager.diff
 argparse-no-shutil.diff
 sysconfigdata-name.patch
 destshared-location.patch
