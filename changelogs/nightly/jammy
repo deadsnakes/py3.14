@@ -1,3 +1,9 @@
+python3.14 (3.14.0~a0-1806-g31516c98dd-1+jammy1) jammy; urgency=medium
+
+  * Update to v3.14.0a0-1806-g31516c98dd.
+
+ -- Anthony Sottile (deadsnakes) <asottile+deadsnakes@umich.edu>  Mon, 07 Oct 2024 08:53:39 +0000
+
 python3.14 (3.14.0~a0-1799-g16cd6cc86b-1+jammy1) jammy; urgency=medium
 
   * Update to v3.14.0a0-1799-g16cd6cc86b.
