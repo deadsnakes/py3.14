@@ -75,7 +75,7 @@ index 07a6361..e6e151b 100644
              sitepackages.append(prefix)
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index 80aef34..9842fd0 100644
+index 43f9276..c8ced46 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
 @@ -27,8 +27,8 @@
@@ -200,7 +200,7 @@ index 035913c..c23db4f 100644
          else:
              # other platforms
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 07c8a4d..17c5474 100644
+index fb6f22d..aba97f0 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -159,7 +159,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
@@ -229,7 +229,7 @@ index 1f1bfcb..411b6d7 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index 17c70d2..f5513b2 100755
+index b11f41d..848feff 100755
 --- a/configure
 +++ b/configure
 @@ -25027,11 +25027,11 @@ fi
@@ -268,7 +268,7 @@ index 17c70d2..f5513b2 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index 56daa8b..bed5dd3 100644
+index d5bc739..4889e5f 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -6283,11 +6283,11 @@ fi
