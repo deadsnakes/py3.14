@@ -96,22 +96,6 @@ PREVVER	:= $(shell awk '/^python/ && NR > 1 {print substr($$2,2,length($$2)-2); 
 DEFAULT_VERSION = no
 STATIC_PYTHON=yes
 
-MIN_MODS := $(shell awk '/^  / && $$2 == "module" { print $$1 }' \
-		debian/PVER-minimal.README.Debian.in)
-MIN_EXTS := $(shell awk '/^  / && $$2 ~ /^extension/ { print $$1 }' \
-		debian/PVER-minimal.README.Debian.in)
-MIN_BUILTINS := $(shell awk '/^  / && $$2 == "builtin" { print $$1 }' \
-		debian/PVER-minimal.README.Debian.in)
-MIN_PACKAGES := $(shell awk '/^  / && $$2 == "package" { print $$1 }' \
-		debian/PVER-minimal.README.Debian.in)
-MIN_ENCODINGS := $(foreach i, \
-			$(filter-out \
-			  big5% bz2% cp932.py cp949.py cp950.py euc_% \
-			  gb% iso2022% johab.py shift_jis% , \
-			  $(shell cd Lib/encodings && echo *.py)), \
-			encodings/$(i)) \
-		 codecs.py stringprep.py
-
 with_tk := yes
 with_gdbm := yes
 with_interp := static
@@ -128,7 +112,6 @@ endif
 ifeq ($(distribution),Ubuntu)
   PY_MINPRIO = required
   PY_MINPRIO = optional
-  #with_udeb = yes
   # test_ssl assumes that openssl is compiled with security level set to 1
   # make it so, during the build
   export OPENSSL_CONF = $(CURDIR)/debian/openssl.cnf
@@ -250,14 +233,12 @@ scriptdir	=  usr/lib/python$(VER)
 
 # package names and directories
 p_base	:= $(PVER)
-p_min	:= $(PVER)-minimal
 p_lib	:= lib$(PVER)
 p_dev	:= $(PVER)-dev
 p_exam	:= $(PVER)-examples
 p_idle	:= idle-$(PVER)
 p_dbg	:= $(PVER)-dbg
 p_nogil	:= $(PVER)-nogil
-p_udeb	:= $(PVER)-udeb
 p_venv	:= $(PVER)-venv
 p_tk	:= $(PVER)-tk
 p_tk_dbg	:= $(PVER)-tk-dbg
@@ -268,21 +249,18 @@ p_gdbm_nogil	:= $(PVER)-gdbm-nogil
 p_full	:= $(PVER)-full
 
 p_lbase	:= lib$(PVER)-stdlib
-p_lmin	:= lib$(PVER)-minimal
 p_ldev	:= lib$(PVER)-dev
 p_ldbg	:= lib$(PVER)-dbg
 p_lnogil	:= lib$(PVER)-nogil
 p_ltst	:= lib$(PVER)-testsuite
 
 d_base	:= debian/$(p_base)
-d_min	:= debian/$(p_min)
 d_lib	:= debian/$(p_lib)
 d_dev	:= debian/$(p_dev)
 d_exam	:= debian/$(p_exam)
 d_idle	:= debian/$(p_idle)
 d_dbg	:= debian/$(p_dbg)
 d_nogil	:= debian/$(p_nogil)
-d_udeb	:= debian/$(p_udeb)
 d_venv	:= debian/$(p_venv)
 d_tk	:= debian/$(p_tk)
 d_tk_dbg	:= debian/$(p_tk_dbg)
@@ -292,7 +270,6 @@ d_gdbm_dbg	:= debian/$(p_gdbm_dbg)
 d_gdbm_nogil	:= debian/$(p_gdbm_nogil)
 
 d_lbase	:= debian/$(p_lbase)
-d_lmin	:= debian/$(p_lmin)
 d_ldev	:= debian/$(p_ldev)
 d_ldbg	:= debian/$(p_ldbg)
 d_lnogil	:= debian/$(p_lnogil)
@@ -302,7 +279,6 @@ build-arch: stamps/stamp-build
 build-indep:
 build: build-arch
 stamps/stamp-build: stamps/stamp-build-static \
-    stamps/stamp-mincheck \
     stamps/stamp-build-shared \
     stamps/stamp-build-debug \
     stamps/stamp-build-shared-debug \
@@ -496,10 +472,10 @@ stamps/stamp-configure-shared-nogil: stamps/stamp-patch
 
 define __post_configure
 	egrep \
-	  "^#($$(awk -v ORS='|' '$$2 ~ /^extension$$/ {print $$1}' debian/PVER-minimal.README.Debian.in)XX)" \
-	  Modules/Setup \
-	    | sed -e 's/^#//' -e 's/-Wl,-Bdynamic//;s/-Wl,-Bstatic//' \
-	    >> $(1)/Modules/Setup.local
+		"^#($$(awk -v ORS='|' '{print $$1}' debian/static-modules.in)XX)" \
+		Modules/Setup \
+			| sed -e 's/^#//' -e 's/-Wl,-Bdynamic//;s/-Wl,-Bstatic//' \
+			>> $(1)/Modules/Setup.local
 
 	: # unconditionally run makesetup
 	cd $(1) && \
@@ -510,23 +486,6 @@ define __post_configure
 	: # and fix the timestamps
 	$(MAKE) -C $(1) Makefile Modules/config.c
 endef
-
-stamps/stamp-mincheck: stamps/stamp-build-static debian/PVER-minimal.README.Debian.in
-ifeq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))
-	for m in $(MIN_MODS) $(MIN_PACKAGES) $(MIN_EXTS) $(MIN_BUILTINS); do \
-	  echo "import $$m"; \
-	done > $(buildd_static)/minmods.py
-	cd $(buildd_static) && ./python -S ../debian/pymindeps.py minmods.py \
-	  > mindeps.txt
-	-if [ -x /usr/bin/dot ]; then \
-	  cd $(buildd_static) && ./python -S ../debian/depgraph.py \
-	    < mindeps.txt > mindeps.dot; \
-	  dot -Tpng -o mindeps.png mindeps.dot; \
-	else true; fi
-	cd $(buildd_static) && ./python -S ../debian/mincheck.py \
-		minmods.py mindeps.txt
-endif
-	touch stamps/stamp-mincheck
 
 TEST_DIR := $(shell [ -f debian/testdir ] || mktemp -d > debian/testdir; cat debian/testdir)
 
@@ -699,33 +658,6 @@ else
 endif
 	touch stamps/stamp-pybench
 
-minimal-test:
-	rm -rf mintest
-	mkdir -p mintest/lib mintest/dynlib mintest/testlib mintest/all-lib
-	cp -p $(buildd_static)/python mintest/
-	cp -p $(foreach i,$(MIN_MODS),Lib/$(i).py) \
-		mintest/lib/
-	cp -a $(foreach i,$(MIN_PACKAGES),Lib/$(i)) \
-		mintest/lib/
-	cp -p $(wildcard $(foreach i,$(MIN_EXTS),$(buildd_static)/build/lib*/$(i).*.so)) \
-		mintest/dynlib/
-	cp -p Lib/unittest.py mintest/lib/
-	cp -pr Lib/test mintest/lib/
-	cp -pr Lib mintest/all-lib
-	cp -p $(buildd_static)/build/lib*/*.so mintest/all-lib/
-	( \
-	  echo "import sys"; \
-	  echo "sys.path = ["; \
-	  echo "    '$(CURDIR)/mintest/lib',"; \
-	  echo "    '$(CURDIR)/mintest/dynlib',"; \
-	  echo "]"; \
-	  cat Lib/test/regrtest.py; \
-	) > mintest/lib/test/mintest.py
-	cd mintest && ./python -E -S lib/test/mintest.py \
-	     -x test_codecencodings_cn test_codecencodings_hk \
-		test_codecencodings_jp test_codecencodings_kr \
-		test_codecencodings_tw test_codecs test_multibytecodec \
-
 control-file:
 	sed -e "s/@PVER@/$(PVER)/g" \
 	    -e "s/@VER@/$(VER)/g" \
@@ -737,7 +669,6 @@ control-file:
 	    -e "s/@bd_dbm@/$(bd_dbm)/g" \
 	    -e "s/@bd_dpkgdev@/$(bd_dpkgdev)/g" \
 		debian/control.in \
-		$(if $(with_udeb),debian/control.udeb) \
 	      | $(ma_filter) \
 	      > debian/control.tmp
 ifeq ($(distribution),Ubuntu)
@@ -901,50 +832,13 @@ endif
 		$(buildd_shared)/Makefile \
 		> $(d)/$(scriptdir)/config-$(VER)-$(DEB_HOST_MULTIARCH)/Makefile
 
-	: # Move the minimal libraries into $(p_lmin).
-	dh_installdirs -p$(p_lmin) \
-		etc/$(PVER) \
-		usr/bin \
-		usr/share/man/man1 \
-		$(scriptdir)/lib-dynload
-	-cd $(d); for i in $(MIN_EXTS); do \
-			test -e $(scriptdir)/lib-dynload/$$i.*.so \
-			  && echo $(scriptdir)/lib-dynload/$$i.*.so; \
-		  done
-
-	$(dh_compat2) dh_movefiles -p$(p_lmin) --sourcedir=$(d) \
-		$(foreach i,$(MIN_MODS),$(scriptdir)/$(i).py) \
-		$(foreach i,$(MIN_PACKAGES),$(scriptdir)/$(i)) \
-		$(foreach i,$(MIN_ENCODINGS),$(scriptdir)/$(i)) \
-		$(scriptdir)/site.py \
-		$(scriptdir)/_sysconfigdata__$(DEB_HOST_MULTIARCH).py \
-		`cd $(d); for i in $(MIN_EXTS); do \
-			test -e $(scriptdir)/lib-dynload/$$i.*.so \
-			  && echo $(scriptdir)/lib-dynload/$$i.*.so; \
-		  done`
-	ls -l  $(d_lmin)/$(scriptdir)/lib-dynload/*.so
-
-	: # Move the binary into $(p_min).
-	dh_installdirs -p$(p_min) \
+	: # Move the binary into $(p_base).
+	dh_installdirs -p$(p_base) \
 		usr/bin \
 		usr/share/man/man1
-	$(dh_compat2) dh_movefiles -p$(p_min) --sourcedir=$(d) \
+	$(dh_compat2) dh_movefiles -p$(p_base) --sourcedir=$(d) \
 		usr/bin/python$(VER) \
 		usr/share/man/man1/python$(VER).1
-
-	rv=0; \
-	for i in $(MIN_EXTS); do \
-	  if [ -f $(d)/$(scriptdir)/lib-dynload/$$i.so ]; then \
-	    echo >&2 "extension $$i not mentioned in Setup.dist"; \
-	    rv=1; \
-	  fi; \
-	done; \
-	exit $$rv;
-
-	: # Install sitecustomize.py
-	cp -p debian/sitecustomize.py $(d_lmin)/etc/$(PVER)/
-	dh_link -p$(p_lmin) \
-		/etc/$(PVER)/sitecustomize.py /$(scriptdir)/sitecustomize.py
 
 	: # Move the static library and the header files into $(p_dev).
 #	mv $(d)/usr/share/include/python$(VER)/* $(d)/usr/include/python$(VER)/.
@@ -1122,9 +1016,15 @@ endif
 
 	: # library files into $(p_lbase)
 	dh_installdirs -p$(p_lbase) \
+		etc/$(PVER) \
 		usr/lib
 	dh_movefiles -p$(p_lbase) \
 		usr/lib/python$(VER)
+
+	: # Install sitecustomize.py
+	cp -p debian/sitecustomize.py $(d_lbase)/etc/$(PVER)/
+	dh_link -p$(p_lbase) \
+		/etc/$(PVER)/sitecustomize.py /$(scriptdir)/sitecustomize.py
 
 	: # The rest goes into $(p_base)
 	mkdir -p $(d)/usr/lib/python3/dist-packages
@@ -1136,12 +1036,12 @@ endif
 	cp -p debian/pylogo.xpm $(d_base)/usr/share/pixmaps/$(PVER).xpm
 
 	: # generate binfmt file
-	mkdir -p $(d_min)/usr/share/binfmts
+	mkdir -p $(d_base)/usr/share/binfmts
 ifeq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))
 	$(buildd_static)/python debian/mkbinfmt.py $(PVER) \
-		> $(d_min)/usr/share/binfmts/$(PVER)
+		> $(d_base)/usr/share/binfmts/$(PVER)
 else
-	$(PVER) debian/mkbinfmt.py $(PVER) > $(d_min)/usr/share/binfmts/$(PVER)
+	$(PVER) debian/mkbinfmt.py $(PVER) > $(d_base)/usr/share/binfmts/$(PVER)
 endif
 
 	: # desktop entry
@@ -1501,10 +1401,6 @@ binary-arch: build-arch install
 	  rm -rf debian/$$i/usr/share/doc/$$i; \
 	  ln -s $(p_base) debian/$$i/usr/share/doc/$$i; \
 	done
-	for i in $(p_lbase); do \
-	  rm -rf debian/$$i/usr/share/doc/$$i; \
-	  ln -s $(p_lmin) debian/$$i/usr/share/doc/$$i; \
-	done
 	for i in $(p_ldev) $(p_ldbg) $(p_lnogil) $(p_lib); do \
 	  rm -rf debian/$$i/usr/share/doc/$$i; \
 	  ln -s $(p_lbase) debian/$$i/usr/share/doc/$$i; \
@@ -1532,7 +1428,6 @@ endif
 	dh_link -a
 	dh_compress -a -X.py
 	dh_fixperms -a
-	chmod 644 $(d_lmin)/$(scriptdir)/token.py
 
 	: # make python scripts starting with '#!' executable
 	for i in `find debian -mindepth 3 -type f ! -perm 755`; do \
@@ -1544,9 +1439,6 @@ endif
 
 	dh_installdeb -a
 	dh_shlibdeps -a
-	dep=`sed -n '/^shlibs:Depends/s/[^=]*=\(.*\)/\1/p' $(d_min).substvars | awk -v RS=', ' -v ORS=', ' '/^libc6/ { print }'`; \
-	echo "shlibs:Pre-Depends=$$dep" >> $(d_min).substvars
-	sed -i '/^shlibs:Depends/s/libc6[^,]*[, ]*//g' $(d_min).substvars
 	dh_gencontrol -a -- $(arch_substvars)
 	dh_md5sums -a
 	dh_builddeb -a

@@ -26,8 +26,7 @@ Package: @PVER@
 Architecture: any
 Multi-Arch: allowed
 Priority: @PRIO@
-Depends: @PVER@-minimal (= ${binary:Version}),
- lib@PVER@-stdlib (= ${binary:Version}),
+Depends: lib@PVER@-stdlib (= ${binary:Version}),
  media-types,
  ${shlibs:Depends}, ${misc:Depends}
 Suggests: @PVER@-venv, binutils
@@ -56,7 +55,7 @@ Architecture: any
 Multi-Arch: same
 Priority: @PRIO@
 Pre-Depends: ${misc:Pre-Depends}
-Depends: lib@PVER@-minimal (= ${binary:Version}), media-types, tzdata, ${shlibs:Depends}, ${misc:Depends}
+Depends: media-types, tzdata, ${shlibs:Depends}, ${misc:Depends}
 Recommends: ca-certificates
 Description: Interactive high-level object-oriented language (standard library, version @VER@)
  Python is a high-level, interactive, object-oriented language. Its @VER@ version
@@ -65,34 +64,6 @@ Description: Interactive high-level object-oriented language (standard library, 
  .
  This package contains Python @VER@'s standard library. It is normally not
  used on its own, but as a dependency of python@VER@.
-
-Package: @PVER@-minimal
-Architecture: any
-Multi-Arch: allowed
-Priority: @MINPRIO@
-Pre-Depends: ${shlibs:Pre-Depends}
-Depends: lib@PVER@-minimal (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Recommends: @PVER@
-Suggests: binfmt-support
-Conflicts: binfmt-support (<< 1.1.2)
-Description: Minimal subset of the Python language (version @VER@)
- This package contains the interpreter and some essential modules.  It can
- be used in the boot process for some basic tasks.
- See /usr/share/doc/@PVER@-minimal/README.Debian for a list of the modules
- contained in this package.
-XB-Cnf-Visible-Pkgname: @PVER@
-
-Package: lib@PVER@-minimal
-Architecture: any
-Multi-Arch: same
-Priority: @MINPRIO@
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: lib@PVER@-stdlib
-Conflicts: binfmt-support (<< 1.1.2)
-Description: Minimal subset of the Python language (version @VER@)
- This package contains some essential modules. It is normally not
- used on it's own, but as a dependency of @PVER@-minimal.
 
 Package: lib@PVER@
 Architecture: any

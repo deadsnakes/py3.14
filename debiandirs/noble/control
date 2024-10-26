@@ -26,8 +26,7 @@ Package: python3.14
 Architecture: any
 Multi-Arch: allowed
 Priority: optional
-Depends: python3.14-minimal (= ${binary:Version}),
- libpython3.14-stdlib (= ${binary:Version}),
+Depends: libpython3.14-stdlib (= ${binary:Version}),
  media-types,
  ${shlibs:Depends}, ${misc:Depends}
 Suggests: python3.14-venv, binutils
@@ -56,7 +55,7 @@ Architecture: any
 Multi-Arch: same
 Priority: optional
 Pre-Depends: ${misc:Pre-Depends}
-Depends: libpython3.14-minimal (= ${binary:Version}), media-types, tzdata, ${shlibs:Depends}, ${misc:Depends}
+Depends: media-types, tzdata, ${shlibs:Depends}, ${misc:Depends}
 Recommends: ca-certificates
 Description: Interactive high-level object-oriented language (standard library, version 3.14)
  Python is a high-level, interactive, object-oriented language. Its 3.14 version
@@ -65,34 +64,6 @@ Description: Interactive high-level object-oriented language (standard library, 
  .
  This package contains Python 3.14's standard library. It is normally not
  used on its own, but as a dependency of python3.14.
-
-Package: python3.14-minimal
-Architecture: any
-Multi-Arch: allowed
-Priority: optional
-Pre-Depends: ${shlibs:Pre-Depends}
-Depends: libpython3.14-minimal (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Recommends: python3.14
-Suggests: binfmt-support
-Conflicts: binfmt-support (<< 1.1.2)
-Description: Minimal subset of the Python language (version 3.14)
- This package contains the interpreter and some essential modules.  It can
- be used in the boot process for some basic tasks.
- See /usr/share/doc/python3.14-minimal/README.Debian for a list of the modules
- contained in this package.
-XB-Cnf-Visible-Pkgname: python3.14
-
-Package: libpython3.14-minimal
-Architecture: any
-Multi-Arch: same
-Priority: optional
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: libpython3.14-stdlib
-Conflicts: binfmt-support (<< 1.1.2)
-Description: Minimal subset of the Python language (version 3.14)
- This package contains some essential modules. It is normally not
- used on it's own, but as a dependency of python3.14-minimal.
 
 Package: libpython3.14
 Architecture: any
