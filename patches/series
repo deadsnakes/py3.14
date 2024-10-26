@@ -7,12 +7,9 @@ link-opt.diff
 setup-modules.diff
 langpack-gettext.diff
 disable-sem-check.diff
-lib-argparse.diff
 ctypes-arm.diff
 multiarch.diff
-tempfile-minimal.diff
 reproducible-buildinfo.diff
-argparse-no-shutil.diff
 sysconfigdata-name.patch
 destshared-location.patch
 test-no-random-order.patch
