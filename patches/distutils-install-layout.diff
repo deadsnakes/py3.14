@@ -200,10 +200,10 @@ index 035913c..c23db4f 100644
          else:
              # other platforms
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 751e7ab..59010d3 100644
+index db5bad8..7af1406 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -159,7 +159,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
+@@ -166,7 +166,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
  
  # Detailed destination directories
  BINLIBDEST=	@BINLIBDEST@
@@ -229,10 +229,10 @@ index 1f1bfcb..411b6d7 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index 13c7d8a..74e897f 100755
+index 7a778b4..fd77376 100755
 --- a/configure
 +++ b/configure
-@@ -24985,11 +24985,11 @@ fi
+@@ -25010,11 +25010,11 @@ fi
  
  
  
@@ -246,7 +246,7 @@ index 13c7d8a..74e897f 100755
  
  PLATLIBDIR="lib"
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for --with-platlibdir" >&5
-@@ -25008,7 +25008,7 @@ then
+@@ -25033,7 +25033,7 @@ then
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
  printf "%s\n" "yes" >&6; }
    PLATLIBDIR="$withval"
@@ -255,7 +255,7 @@ index 13c7d8a..74e897f 100755
  else
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
  printf "%s\n" "no" >&6; }
-@@ -25022,9 +25022,9 @@ fi
+@@ -25047,9 +25047,9 @@ fi
  
  
  if test x$PLATFORM_TRIPLET = x; then
@@ -268,10 +268,10 @@ index 13c7d8a..74e897f 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index a470fd4..a0103fc 100644
+index 42daf1c..de5a19e 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -6259,11 +6259,11 @@ fi
+@@ -6278,11 +6278,11 @@ fi
  
  
  AC_SUBST([BINLIBDEST])
@@ -285,7 +285,7 @@ index a470fd4..a0103fc 100644
  AC_SUBST([PLATLIBDIR])
  PLATLIBDIR="lib"
  AC_MSG_CHECKING([for --with-platlibdir])
-@@ -6282,7 +6282,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
+@@ -6301,7 +6301,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
  then
    AC_MSG_RESULT([yes])
    PLATLIBDIR="$withval"
@@ -294,7 +294,7 @@ index a470fd4..a0103fc 100644
  else
    AC_MSG_RESULT([no])
  fi],
-@@ -6292,9 +6292,9 @@ fi],
+@@ -6311,9 +6311,9 @@ fi],
  dnl define LIBPL after ABIFLAGS and LDVERSION is defined.
  AC_SUBST([PY_ENABLE_SHARED])
  if test x$PLATFORM_TRIPLET = x; then
