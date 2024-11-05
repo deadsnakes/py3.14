@@ -28,10 +28,10 @@ index 0bdf61d..be085ec 100644
  
  def _init_posix(vars):
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index e6973c0..62a96de 100644
+index 78b13ff..1f84acc 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -2643,8 +2643,10 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
+@@ -2645,8 +2645,10 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
  			esac; \
  		done; \
  	done
@@ -45,7 +45,7 @@ index e6973c0..62a96de 100644
  	@ # If app store compliance has been configured, apply the patch to the
  	@ # installed library code. The patch has been previously validated against
 diff --git a/configure.ac b/configure.ac
-index 2a0dbae..3ba0d53 100644
+index 4cb5672..743d80c 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -164,7 +164,7 @@ AC_ARG_WITH([build-python],
