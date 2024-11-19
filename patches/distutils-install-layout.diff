@@ -26,7 +26,7 @@ index 8aed6c0..2332e72 100644
              object.__name__ not in ('xml.etree', 'test.test_pydoc.pydoc_mod')):
              if docloc.startswith(("http://", "https://")):
 diff --git a/Lib/site.py b/Lib/site.py
-index 07a6361..e6e151b 100644
+index 54f07ab..071e4c5 100644
 --- a/Lib/site.py
 +++ b/Lib/site.py
 @@ -7,12 +7,18 @@
@@ -213,7 +213,7 @@ index 8d94ba3..0abbe39 100644
  CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
  
 diff --git a/Modules/getpath.py b/Modules/getpath.py
-index 1f1bfcb..411b6d7 100644
+index 1c1eb6c..d3fbb83 100644
 --- a/Modules/getpath.py
 +++ b/Modules/getpath.py
 @@ -179,9 +179,9 @@
