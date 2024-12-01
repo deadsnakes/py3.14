@@ -28,19 +28,19 @@ index fdfd4b5..65dd408 100644
  
  def _init_posix(vars):
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 7d5a283..3db63c6 100644
+index 938a74e..d3e9c49 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -2648,8 +2648,10 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
  			esac; \
  		done; \
  	done
--	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py \
--		$(DESTDIR)$(LIBDEST); \
-+	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py \
-+		$(DESTDIR)$(LIBDEST)
-+	$(LN) -s _sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py \
-+		$(DESTDIR)$(LIBDEST)/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py
+-	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py $(DESTDIR)$(LIBDEST); \
+-	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfig_vars_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).json $(DESTDIR)$(LIBDEST); \
++	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py $(DESTDIR)$(LIBDEST); \
++	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfig_vars_$(ABIFLAGS)_$(MULTIARCH).json $(DESTDIR)$(LIBDEST); \
++	$(LN) -s _sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py $(DESTDIR)$(LIBDEST)/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py; \
++	$(LN) -s _sysconfig_vars_$(ABIFLAGS)_$(MULTIARCH).json $(DESTDIR)$(LIBDEST)/_sysconfig_vars_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).json; \
  	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
  	@ # If app store compliance has been configured, apply the patch to the
  	@ # installed library code. The patch has been previously validated against

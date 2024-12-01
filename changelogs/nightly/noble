@@ -1,3 +1,9 @@
+python3.14 (3.14.0~a2-135-g7ea523f47c-1+noble1) noble; urgency=medium
+
+  * Update to v3.14.0a2-135-g7ea523f47c.
+
+ -- Anthony Sottile <asottile@umich.edu>  Sun, 01 Dec 2024 23:30:36 +0000
+
 python3.14 (3.14.0~a2-102-g6d3b5206cf-1+noble1) noble; urgency=medium
 
   * Update to v3.14.0a2-102-g6d3b5206cf.
