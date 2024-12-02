@@ -75,7 +75,7 @@ index 92bd1cc..f4466ef 100644
              sitepackages.append(prefix)
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index ee52700..5c6bbe1 100644
+index ad86609..1b3a76c 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
 @@ -27,8 +27,8 @@
@@ -229,10 +229,10 @@ index 7949fd8..9e2ec63 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index 84b74ac..134a6d0 100755
+index 4e40432..80654a9 100755
 --- a/configure
 +++ b/configure
-@@ -24984,11 +24984,11 @@ fi
+@@ -24982,11 +24982,11 @@ fi
  
  
  
@@ -246,7 +246,7 @@ index 84b74ac..134a6d0 100755
  
  PLATLIBDIR="lib"
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for --with-platlibdir" >&5
-@@ -25007,7 +25007,7 @@ then
+@@ -25005,7 +25005,7 @@ then
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
  printf "%s\n" "yes" >&6; }
    PLATLIBDIR="$withval"
@@ -255,7 +255,7 @@ index 84b74ac..134a6d0 100755
  else
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
  printf "%s\n" "no" >&6; }
-@@ -25021,9 +25021,9 @@ fi
+@@ -25019,9 +25019,9 @@ fi
  
  
  if test x$PLATFORM_TRIPLET = x; then
@@ -268,7 +268,7 @@ index 84b74ac..134a6d0 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index 8fa6cb6..7437bdd 100644
+index 4cfced1..7a0ac28 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -6198,11 +6198,11 @@ fi

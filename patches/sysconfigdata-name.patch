@@ -15,10 +15,10 @@ Forwarded: no
  3 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index fdfd4b5..65dd408 100644
+index 7929920..dd626c0 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
-@@ -371,7 +371,7 @@ def _get_sysconfigdata_name():
+@@ -379,7 +379,7 @@ def _get_sysconfigdata_name():
      multiarch = getattr(sys.implementation, '_multiarch', '')
      return os.environ.get(
          '_PYTHON_SYSCONFIGDATA_NAME',
@@ -45,7 +45,7 @@ index 938a74e..d3e9c49 100644
  	@ # If app store compliance has been configured, apply the patch to the
  	@ # installed library code. The patch has been previously validated against
 diff --git a/configure.ac b/configure.ac
-index 56a268f..e8820c6 100644
+index 6a2c2b9..6dec1ea 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -164,7 +164,7 @@ AC_ARG_WITH([build-python],
