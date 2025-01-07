@@ -75,7 +75,7 @@ index 92bd1cc..f4466ef 100644
              sitepackages.append(prefix)
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index ed7b6a3..ecb2aa6 100644
+index 20d506b..9c9a939 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
 @@ -27,8 +27,8 @@
@@ -229,7 +229,7 @@ index c34101e..4df5c6e 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index 61ee51c..a2f796a 100755
+index 08c10ff..e80fa2b 100755
 --- a/configure
 +++ b/configure
 @@ -26128,11 +26128,11 @@ fi
@@ -268,10 +268,10 @@ index 61ee51c..a2f796a 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index 172e8a1..3021608 100644
+index fb1dd77..216d24e 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -6228,11 +6228,11 @@ fi
+@@ -6235,11 +6235,11 @@ fi
  
  
  AC_SUBST([BINLIBDEST])
@@ -285,7 +285,7 @@ index 172e8a1..3021608 100644
  AC_SUBST([PLATLIBDIR])
  PLATLIBDIR="lib"
  AC_MSG_CHECKING([for --with-platlibdir])
-@@ -6251,7 +6251,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
+@@ -6258,7 +6258,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
  then
    AC_MSG_RESULT([yes])
    PLATLIBDIR="$withval"
@@ -294,7 +294,7 @@ index 172e8a1..3021608 100644
  else
    AC_MSG_RESULT([no])
  fi],
-@@ -6261,9 +6261,9 @@ fi],
+@@ -6268,9 +6268,9 @@ fi],
  dnl define LIBPL after ABIFLAGS and LDVERSION is defined.
  AC_SUBST([PY_ENABLE_SHARED])
  if test x$PLATFORM_TRIPLET = x; then
