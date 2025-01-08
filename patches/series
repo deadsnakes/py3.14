@@ -14,3 +14,4 @@ sysconfigdata-name.patch
 destshared-location.patch
 test-no-random-order.patch
 disable-a-few-xml-tests.patch
+relax-autoconf-version.patch
