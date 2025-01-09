@@ -14,10 +14,10 @@ Subject: distutils-install-layout
  8 files changed, 88 insertions(+), 33 deletions(-)
 
 diff --git a/Lib/pydoc.py b/Lib/pydoc.py
-index 8aed6c0..2332e72 100644
+index 831c99d..aadf242 100644
 --- a/Lib/pydoc.py
 +++ b/Lib/pydoc.py
-@@ -570,6 +570,7 @@ def getdocloc(self, object, basedir=sysconfig.get_path('stdlib')):
+@@ -579,6 +579,7 @@ def getdocloc(self, object, basedir=sysconfig.get_path('stdlib')):
                                   'marshal', 'posix', 'signal', 'sys',
                                   '_thread', 'zipimport') or
               (file.startswith(basedir) and
@@ -213,7 +213,7 @@ index 67acf0f..689bfe1 100644
  CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
  
 diff --git a/Modules/getpath.py b/Modules/getpath.py
-index c34101e..4df5c6e 100644
+index be22103..b8916a4 100644
 --- a/Modules/getpath.py
 +++ b/Modules/getpath.py
 @@ -179,9 +179,9 @@
@@ -229,10 +229,10 @@ index c34101e..4df5c6e 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index 6e1b393..ee3abab 100755
+index bb77c55..c2f9c035 100755
 --- a/configure
 +++ b/configure
-@@ -26128,11 +26128,11 @@ fi
+@@ -26134,11 +26134,11 @@ fi
  
  
  
@@ -246,7 +246,7 @@ index 6e1b393..ee3abab 100755
  
  PLATLIBDIR="lib"
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for --with-platlibdir" >&5
-@@ -26151,7 +26151,7 @@ then
+@@ -26157,7 +26157,7 @@ then
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
  printf "%s\n" "yes" >&6; }
    PLATLIBDIR="$withval"
@@ -255,7 +255,7 @@ index 6e1b393..ee3abab 100755
  else
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
  printf "%s\n" "no" >&6; }
-@@ -26166,9 +26166,9 @@ fi
+@@ -26172,9 +26172,9 @@ fi
  
  
  if test x$PLATFORM_TRIPLET = x; then
@@ -268,7 +268,7 @@ index 6e1b393..ee3abab 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index 6d44be8..82fba82 100644
+index 653cd3f..852f2da 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -6235,11 +6235,11 @@ fi
