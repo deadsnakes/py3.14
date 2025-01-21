@@ -75,7 +75,7 @@ index 92bd1cc..f4466ef 100644
              sitepackages.append(prefix)
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index 7a4a8f6..e710e7a 100644
+index 3c3c979..1ebfe87 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
 @@ -27,8 +27,8 @@
@@ -142,7 +142,7 @@ index 7a4a8f6..e710e7a 100644
              'purelib': '{userbase}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
              'platlib': '{userbase}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
              'include': '{userbase}/include/{implementation_lower}{py_version_short}{abi_thread}',
-@@ -290,12 +314,26 @@ def _get_preferred_schemes():
+@@ -297,12 +321,26 @@ def _get_preferred_schemes():
              'home': 'posix_home',
              'user': 'osx_framework_user',
          }
