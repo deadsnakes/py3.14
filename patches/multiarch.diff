@@ -8,10 +8,10 @@ Subject: multiarch
  2 files changed, 7 insertions(+)
 
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index 1ebfe87..cc63925 100644
+index 9018cff..72c4226 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
-@@ -570,6 +570,12 @@ def _init_config_vars():
+@@ -591,6 +591,12 @@ def _init_config_vars():
      # e.g., 't' for free-threaded or '' for default build
      _CONFIG_VARS['abi_thread'] = 't' if _CONFIG_VARS.get('Py_GIL_DISABLED') else ''
  

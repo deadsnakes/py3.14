@@ -26,7 +26,7 @@ index f6dc141..7bbbca5 100644
              object.__name__ not in ('xml.etree', 'test.test_pydoc.pydoc_mod')):
              if docloc.startswith(("http://", "https://")):
 diff --git a/Lib/site.py b/Lib/site.py
-index 92bd1cc..f4466ef 100644
+index 9da8b67..8d3bf27 100644
 --- a/Lib/site.py
 +++ b/Lib/site.py
 @@ -7,12 +7,18 @@
@@ -75,7 +75,7 @@ index 92bd1cc..f4466ef 100644
              sitepackages.append(prefix)
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index 3c3c979..1ebfe87 100644
+index 69f7245..9018cff 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
 @@ -27,8 +27,8 @@
@@ -131,7 +131,7 @@ index 3c3c979..1ebfe87 100644
      }
  
  # For the OS-native venv scheme, we essentially provide an alias:
-@@ -148,8 +172,8 @@ def joinuser(*args):
+@@ -150,8 +174,8 @@ def joinuser(*args):
              'data': '{userbase}',
              },
          'posix_user': {
@@ -142,7 +142,7 @@ index 3c3c979..1ebfe87 100644
              'purelib': '{userbase}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
              'platlib': '{userbase}/lib/{implementation_lower}{py_version_short}{abi_thread}/site-packages',
              'include': '{userbase}/include/{implementation_lower}{py_version_short}{abi_thread}',
-@@ -297,12 +321,26 @@ def _get_preferred_schemes():
+@@ -299,12 +323,26 @@ def _get_preferred_schemes():
              'home': 'posix_home',
              'user': 'osx_framework_user',
          }
@@ -213,7 +213,7 @@ index 67acf0f..689bfe1 100644
  CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
  
 diff --git a/Modules/getpath.py b/Modules/getpath.py
-index be22103..b8916a4 100644
+index 9d531e2..499a741 100644
 --- a/Modules/getpath.py
 +++ b/Modules/getpath.py
 @@ -179,9 +179,9 @@

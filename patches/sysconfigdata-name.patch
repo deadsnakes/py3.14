@@ -15,10 +15,10 @@ Forwarded: no
  3 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index cc63925..cfab53f 100644
+index 72c4226..2a7c2f2 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
-@@ -384,7 +384,7 @@ def _get_sysconfigdata_name():
+@@ -398,7 +398,7 @@ def _get_sysconfigdata_name():
      multiarch = getattr(sys.implementation, '_multiarch', '')
      return os.environ.get(
          '_PYTHON_SYSCONFIGDATA_NAME',
@@ -26,7 +26,7 @@ index cc63925..cfab53f 100644
 +        f'_sysconfigdata_{sys.abiflags}_{multiarch}',
      )
  
- def _init_posix(vars):
+ 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index ba4765c..970976d 100644
 --- a/Makefile.pre.in
