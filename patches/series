@@ -1,6 +1,5 @@
 deb-locations.diff
 distutils-install-layout.diff
-locale-module.diff
 tkinter-import.diff
 gdbm-import.diff
 link-opt.diff

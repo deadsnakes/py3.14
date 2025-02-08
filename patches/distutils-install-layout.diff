@@ -14,7 +14,7 @@ Subject: distutils-install-layout
  8 files changed, 88 insertions(+), 33 deletions(-)
 
 diff --git a/Lib/pydoc.py b/Lib/pydoc.py
-index f6dc141..7bbbca5 100644
+index 035b900..f1591ae 100644
 --- a/Lib/pydoc.py
 +++ b/Lib/pydoc.py
 @@ -579,6 +579,7 @@ def getdocloc(self, object, basedir=sysconfig.get_path('stdlib')):
@@ -229,10 +229,10 @@ index be22103..b8916a4 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index 3eb787f..6640a46 100755
+index d46bc56..a993dc6 100755
 --- a/configure
 +++ b/configure
-@@ -26147,11 +26147,11 @@ fi
+@@ -26153,11 +26153,11 @@ fi
  
  
  
@@ -246,7 +246,7 @@ index 3eb787f..6640a46 100755
  
  PLATLIBDIR="lib"
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for --with-platlibdir" >&5
-@@ -26170,7 +26170,7 @@ then
+@@ -26176,7 +26176,7 @@ then
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
  printf "%s\n" "yes" >&6; }
    PLATLIBDIR="$withval"
@@ -255,7 +255,7 @@ index 3eb787f..6640a46 100755
  else
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
  printf "%s\n" "no" >&6; }
-@@ -26185,9 +26185,9 @@ fi
+@@ -26191,9 +26191,9 @@ fi
  
  
  if test x$PLATFORM_TRIPLET = x; then
@@ -268,10 +268,10 @@ index 3eb787f..6640a46 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index c0130b8..ac5c7a9 100644
+index faa8909..cef982b 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -6248,11 +6248,11 @@ fi
+@@ -6240,11 +6240,11 @@ fi
  
  
  AC_SUBST([BINLIBDEST])
@@ -285,7 +285,7 @@ index c0130b8..ac5c7a9 100644
  AC_SUBST([PLATLIBDIR])
  PLATLIBDIR="lib"
  AC_MSG_CHECKING([for --with-platlibdir])
-@@ -6271,7 +6271,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
+@@ -6263,7 +6263,7 @@ if test -n "$withval" -a "$withval" != yes -a "$withval" != no
  then
    AC_MSG_RESULT([yes])
    PLATLIBDIR="$withval"
@@ -294,7 +294,7 @@ index c0130b8..ac5c7a9 100644
  else
    AC_MSG_RESULT([no])
  fi],
-@@ -6281,9 +6281,9 @@ fi],
+@@ -6273,9 +6273,9 @@ fi],
  dnl define LIBPL after ABIFLAGS and LDVERSION is defined.
  AC_SUBST([PY_ENABLE_SHARED])
  if test x$PLATFORM_TRIPLET = x; then
