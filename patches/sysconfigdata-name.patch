@@ -15,7 +15,7 @@ Forwarded: no
  3 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index 72c4226..2a7c2f2 100644
+index ac197a3..da83cb6 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
 @@ -398,7 +398,7 @@ def _get_sysconfigdata_name():
@@ -28,10 +28,10 @@ index 72c4226..2a7c2f2 100644
  
  
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index ba4765c..970976d 100644
+index 3948267..a01ec71 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -2645,8 +2645,10 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
+@@ -2649,8 +2649,10 @@ libinstall:	all $(srcdir)/Modules/xxmodule.c
  			esac; \
  		done; \
  	done
@@ -41,9 +41,9 @@ index ba4765c..970976d 100644
 +	$(INSTALL_DATA) `cat pybuilddir.txt`/_sysconfig_vars_$(ABIFLAGS)_$(MULTIARCH).json $(DESTDIR)$(LIBDEST); \
 +	$(LN) -s _sysconfigdata_$(ABIFLAGS)_$(MULTIARCH).py $(DESTDIR)$(LIBDEST)/_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).py; \
 +	$(LN) -s _sysconfig_vars_$(ABIFLAGS)_$(MULTIARCH).json $(DESTDIR)$(LIBDEST)/_sysconfig_vars_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH).json; \
+ 	$(INSTALL_DATA) `cat pybuilddir.txt`/build-details.json $(DESTDIR)$(LIBDEST); \
  	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
  	@ # If app store compliance has been configured, apply the patch to the
- 	@ # installed library code. The patch has been previously validated against
 diff --git a/configure.ac b/configure.ac
 index 6689e4c..8487dcf 100644
 --- a/configure.ac

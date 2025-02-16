@@ -1,3 +1,9 @@
+python3.14 (3.14.0~a5-69-g655fc8a0fc-1+jammy1) jammy; urgency=medium
+
+  * Update to v3.14.0a5-69-g655fc8a0fc.
+
+ -- Anthony Sottile <asottile@umich.edu>  Sun, 16 Feb 2025 18:11:42 +0000
+
 python3.14 (3.14.0~a5-31-gc7a9d06e06-1+jammy1) jammy; urgency=medium
 
   * Update to v3.14.0a5-31-gc7a9d06e06.
