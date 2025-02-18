@@ -1,3 +1,9 @@
+python3.14 (3.14.0~a5-91-gb93b7e566e-1+noble1) noble; urgency=medium
+
+  * Update to v3.14.0a5-91-gb93b7e566e.
+
+ -- Anthony Sottile (deadsnakes) <asottile+deadsnakes@umich.edu>  Tue, 18 Feb 2025 08:52:53 +0000
+
 python3.14 (3.14.0~a5-72-g422f8e9e02-1+noble1) noble; urgency=medium
 
   * Update to v3.14.0a5-72-g422f8e9e02.
