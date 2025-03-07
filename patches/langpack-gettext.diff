@@ -15,10 +15,10 @@ Subject: langpack-gettext
  1 file changed, 15 insertions(+)
 
 diff --git a/Lib/gettext.py b/Lib/gettext.py
-index 4c1f942..1de7711 100644
+index 6c11ab2..3124d58 100644
 --- a/Lib/gettext.py
 +++ b/Lib/gettext.py
-@@ -516,11 +516,26 @@ def find(domain, localedir=None, languages=None, all=False):
+@@ -513,11 +513,26 @@ def find(domain, localedir=None, languages=None, all=False):
          if lang == 'C':
              break
          mofile = os.path.join(localedir, lang, 'LC_MESSAGES', '%s.mo' % domain)
