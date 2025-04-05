@@ -21,7 +21,7 @@ index 0d0f86c..a5dcf37 100644
          result = BytesIO()
          xmlgen = XMLGenerator(result)
 diff --git a/Lib/test/test_xml_etree.py b/Lib/test/test_xml_etree.py
-index 7f5945d..7e39b0c 100644
+index 5fe9d68..bab8864 100644
 --- a/Lib/test/test_xml_etree.py
 +++ b/Lib/test/test_xml_etree.py
 @@ -1521,9 +1521,11 @@ def test_simple_xml(self, chunk_size=None, flush=False):

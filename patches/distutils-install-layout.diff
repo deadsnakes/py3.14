@@ -200,7 +200,7 @@ index 16cf257..773cfcd 100644
          else:
              # other platforms
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 3ef0c63..22e0718 100644
+index e10c78d..aee0b0d 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -166,7 +166,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
@@ -229,10 +229,10 @@ index be22103..b8916a4 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index d715391..26e030c 100755
+index 1b75ddf..535a751 100755
 --- a/configure
 +++ b/configure
-@@ -26173,11 +26173,11 @@ fi
+@@ -26177,11 +26177,11 @@ fi
  
  
  
@@ -246,7 +246,7 @@ index d715391..26e030c 100755
  
  PLATLIBDIR="lib"
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for --with-platlibdir" >&5
-@@ -26196,7 +26196,7 @@ then
+@@ -26200,7 +26200,7 @@ then
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
  printf "%s\n" "yes" >&6; }
    PLATLIBDIR="$withval"
@@ -255,7 +255,7 @@ index d715391..26e030c 100755
  else
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
  printf "%s\n" "no" >&6; }
-@@ -26211,9 +26211,9 @@ fi
+@@ -26215,9 +26215,9 @@ fi
  
  
  if test x$PLATFORM_TRIPLET = x; then
@@ -268,7 +268,7 @@ index d715391..26e030c 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index 4e24930..74b8766 100644
+index c449bb5..66060cc 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -6241,11 +6241,11 @@ fi
