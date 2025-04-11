@@ -14,10 +14,10 @@ Subject: distutils-install-layout
  8 files changed, 88 insertions(+), 33 deletions(-)
 
 diff --git a/Lib/pydoc.py b/Lib/pydoc.py
-index 035b900..f1591ae 100644
+index b416ebd..fb77c08 100644
 --- a/Lib/pydoc.py
 +++ b/Lib/pydoc.py
-@@ -579,6 +579,7 @@ def getdocloc(self, object, basedir=sysconfig.get_path('stdlib')):
+@@ -580,6 +580,7 @@ def getdocloc(self, object, basedir=sysconfig.get_path('stdlib')):
                                   'marshal', 'posix', 'signal', 'sys',
                                   '_thread', 'zipimport') or
               (file.startswith(basedir) and
@@ -229,7 +229,7 @@ index be22103..b8916a4 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index 24a7d1d..e6eb3b2 100755
+index decb8f2..4db844f 100755
 --- a/configure
 +++ b/configure
 @@ -26175,11 +26175,11 @@ fi
@@ -268,7 +268,7 @@ index 24a7d1d..e6eb3b2 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index bc6479c..7bee0bd 100644
+index 004797b..9df6e77 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -6241,11 +6241,11 @@ fi
