@@ -7,7 +7,7 @@ Subject: setup-modules
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/Modules/Setup b/Modules/Setup
-index ef9cf80..dfc3ef9 100644
+index 65c22d4..8976d42 100644
 --- a/Modules/Setup
 +++ b/Modules/Setup
 @@ -161,8 +161,8 @@ PYTHONPATH=$(COREPYTHONPATH)
@@ -20,7 +20,7 @@ index ef9cf80..dfc3ef9 100644
 +#pyexpat pyexpat.c -lexpat
  
  # hashing builtins
- #_blake2 blake2module.c -I$(srcdir)/Modules/_hacl/include Modules/_hacl/libHacl_Hash_Blake2.a -D_BSD_SOURCE -D_DEFAULT_SOURCE
+ #_blake2 blake2module.c
 @@ -195,7 +195,7 @@ PYTHONPATH=$(COREPYTHONPATH)
  # Modules that require external libraries.
  
