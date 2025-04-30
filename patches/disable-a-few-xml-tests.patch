@@ -9,7 +9,7 @@ only needed on jammy and older
  2 files changed, 4 insertions(+)
 
 diff --git a/Lib/test/test_sax.py b/Lib/test/test_sax.py
-index 0d0f86c..a5dcf37 100644
+index 5c10bce..ffe1b1f 100644
 --- a/Lib/test/test_sax.py
 +++ b/Lib/test/test_sax.py
 @@ -1241,6 +1241,7 @@ def test_flush_reparse_deferral_enabled(self):
