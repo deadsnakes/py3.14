@@ -7,7 +7,7 @@ Subject: setup-modules
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/Modules/Setup b/Modules/Setup
-index f23f082..289bdc6 100644
+index 81f364a..c9f3e64 100644
 --- a/Modules/Setup
 +++ b/Modules/Setup
 @@ -161,8 +161,8 @@ PYTHONPATH=$(COREPYTHONPATH)
