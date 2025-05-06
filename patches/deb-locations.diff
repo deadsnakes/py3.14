@@ -25,10 +25,10 @@ index def76d0..3c75446 100644
  
  This can be overridden by setting the PYTHONDOCS environment variable
 diff --git a/Misc/python.man b/Misc/python.man
-index fa88a25..58e8a37 100644
+index 15174b6..233bc8f 100644
 --- a/Misc/python.man
 +++ b/Misc/python.man
-@@ -455,7 +455,7 @@ exception).  Error messages are written to stderr.
+@@ -459,7 +459,7 @@ exception).  Error messages are written to stderr.
  These are subject to difference depending on local installation
  conventions; ${prefix} and ${exec_prefix} are installation-dependent
  and should be interpreted as for GNU software; they may be the same.
