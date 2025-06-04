@@ -9,10 +9,10 @@ Subject: disable-sem-check
  1 file changed, 22 insertions(+), 12 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 92b124c..4842137 100644
+index d56d4c2..e462587 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -6156,12 +6156,17 @@ AC_CACHE_CHECK([whether POSIX semaphores are enabled], [ac_cv_posix_semaphores_e
+@@ -6168,12 +6168,17 @@ AC_CACHE_CHECK([whether POSIX semaphores are enabled], [ac_cv_posix_semaphores_e
    [ac_cv_posix_semaphores_enabled=no],
    [ac_cv_posix_semaphores_enabled=yes])
  )
@@ -36,7 +36,7 @@ index 92b124c..4842137 100644
  
  dnl Multiprocessing check for broken sem_getvalue
  AC_CACHE_CHECK([for broken sem_getvalue], [ac_cv_broken_sem_getvalue],
-@@ -6193,12 +6198,17 @@ AC_CACHE_CHECK([for broken sem_getvalue], [ac_cv_broken_sem_getvalue],
+@@ -6205,12 +6210,17 @@ AC_CACHE_CHECK([for broken sem_getvalue], [ac_cv_broken_sem_getvalue],
    [ac_cv_broken_sem_getvalue=yes],
    [ac_cv_broken_sem_getvalue=yes])
  )
