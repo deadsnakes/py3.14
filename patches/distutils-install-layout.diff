@@ -213,7 +213,7 @@ index 66b34b7..6518d0c 100644
  CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
  
 diff --git a/Modules/getpath.py b/Modules/getpath.py
-index be22103..b8916a4 100644
+index b89d742..908ce44 100644
 --- a/Modules/getpath.py
 +++ b/Modules/getpath.py
 @@ -179,9 +179,9 @@
