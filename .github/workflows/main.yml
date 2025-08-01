@@ -7,5 +7,5 @@ jobs:
   main:
     uses: deadsnakes/runbooks/.github/workflows/update-meta-gbp.yml@main
     with:
-      dists-json: '["jammy", "noble"]'
+      dists-json: '["jammy", "noble", "focal"]'
     secrets: inherit
