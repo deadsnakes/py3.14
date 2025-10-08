@@ -14,7 +14,7 @@ Subject: distutils-install-layout
  8 files changed, 88 insertions(+), 33 deletions(-)
 
 diff --git a/Lib/pydoc.py b/Lib/pydoc.py
-index 1987ba5..099614f 100644
+index aeaed32..68e9f66 100644
 --- a/Lib/pydoc.py
 +++ b/Lib/pydoc.py
 @@ -581,6 +581,7 @@ def getdocloc(self, object, basedir=sysconfig.get_path('stdlib')):
@@ -176,10 +176,10 @@ index 2ecbff2..24da98a 100644
  
  def get_preferred_scheme(key):
 diff --git a/Lib/test/test_site.py b/Lib/test/test_site.py
-index d0e3294..b34ac89 100644
+index 39c451f..65812e7 100644
 --- a/Lib/test/test_site.py
 +++ b/Lib/test/test_site.py
-@@ -326,16 +326,16 @@ def test_getsitepackages(self):
+@@ -328,16 +328,16 @@ def test_getsitepackages(self):
          if os.sep == '/':
              # OS X, Linux, FreeBSD, etc
              if sys.platlibdir != "lib":
@@ -200,7 +200,7 @@ index d0e3294..b34ac89 100644
          else:
              # other platforms
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index ba03979..60b4aec 100644
+index 34a270a..ed2ca21 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -166,7 +166,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
@@ -229,7 +229,7 @@ index b89d742..908ce44 100644
      VENV_LANDMARK = 'pyvenv.cfg'
      ZIP_LANDMARK = f'{platlibdir}/python{VERSION_MAJOR}{VERSION_MINOR}{ABI_THREAD}.zip'
 diff --git a/configure b/configure
-index d31c24d..8801445 100755
+index dc66ea0..645e75f 100755
 --- a/configure
 +++ b/configure
 @@ -26784,11 +26784,11 @@ fi
@@ -268,7 +268,7 @@ index d31c24d..8801445 100755
  
  
 diff --git a/configure.ac b/configure.ac
-index af7a962..cec6606 100644
+index 9412e36..9da9c62 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -6363,11 +6363,11 @@ fi
