@@ -12,7 +12,7 @@ Forwarded: no
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index d2be906..4ad2d46 100644
+index 51978ab..08f41a2 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -176,7 +176,7 @@ EXT_SUFFIX=	@EXT_SUFFIX@
