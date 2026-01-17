@@ -7,10 +7,10 @@ Subject: test-no-random-order
  1 file changed, 1 deletion(-)
 
 diff --git a/Lib/test/libregrtest/cmdline.py b/Lib/test/libregrtest/cmdline.py
-index d784506..8a6c406 100644
+index 2c404f6..7a52266 100644
 --- a/Lib/test/libregrtest/cmdline.py
 +++ b/Lib/test/libregrtest/cmdline.py
-@@ -470,7 +470,6 @@ def _parse_args(args, **kwargs):
+@@ -473,7 +473,6 @@ def _parse_args(args, **kwargs):
          #   -j0 --randomize --fail-env-changed --rerun --slowest --verbose3
          if ns.use_mp is None:
              ns.use_mp = 0
