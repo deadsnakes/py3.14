@@ -1,3 +1,9 @@
+python3.14 (3.14.3-112-g4152bbb773-1+noble1) noble; urgency=medium
+
+  * Update to v3.14.3-112-g4152bbb773.
+
+ -- Anthony Sottile (deadsnakes) <asottile+deadsnakes@umich.edu>  Sun, 01 Mar 2026 09:02:26 +0000
+
 python3.14 (3.14.3-110-gd76c56e958-1+noble1) noble; urgency=medium
 
   * Update to v3.14.3-110-gd76c56e958.
