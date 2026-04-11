@@ -12,10 +12,10 @@ Forwarded: no
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 42fb21d..4162250 100644
+index 33a1172..c1d11ac 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -176,7 +176,7 @@ EXT_SUFFIX=	@EXT_SUFFIX@
+@@ -178,7 +178,7 @@ EXT_SUFFIX=	@EXT_SUFFIX@
  LDSHARED=	@LDSHARED@ $(PY_LDFLAGS)
  BLDSHARED=	@BLDSHARED@ $(PY_CORE_LDFLAGS)
  LDCXXSHARED=	@LDCXXSHARED@ $(PY_LDFLAGS)
