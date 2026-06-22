@@ -200,7 +200,7 @@ index f8c6f37..d950ad4 100644
          else:
              # other platforms
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index f86d736..f4d08c4 100644
+index 75a892e..450a12b 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -168,7 +168,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
@@ -213,12 +213,12 @@ index f86d736..f4d08c4 100644
  CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
  
 diff --git a/Modules/getpath.py b/Modules/getpath.py
-index b89d742..908ce44 100644
+index 0e4f1e8..8b2e986 100644
 --- a/Modules/getpath.py
 +++ b/Modules/getpath.py
-@@ -179,9 +179,9 @@
+@@ -177,9 +177,9 @@
+ if os_name == 'posix' or os_name == 'darwin':
      BUILDDIR_TXT = 'pybuilddir.txt'
-     BUILD_LANDMARK = 'Modules/Setup.local'
      DEFAULT_PROGRAM_NAME = f'python{VERSION_MAJOR}'
 -    STDLIB_SUBDIR = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}{ABI_THREAD}'
 +    STDLIB_SUBDIR = f'{platlibdir}/python{VERSION_MAJOR}.{VERSION_MINOR}'
