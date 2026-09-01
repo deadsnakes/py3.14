@@ -21,10 +21,10 @@ index 5c10bce..ffe1b1f 100644
          result = BytesIO()
          xmlgen = XMLGenerator(result)
 diff --git a/Lib/test/test_xml_etree.py b/Lib/test/test_xml_etree.py
-index 6da7c34..fcf5085 100644
+index ed6cfd5..5e030fa 100644
 --- a/Lib/test/test_xml_etree.py
 +++ b/Lib/test/test_xml_etree.py
-@@ -1598,9 +1598,11 @@ def test_simple_xml(self, chunk_size=None, flush=False):
+@@ -1626,9 +1626,11 @@ def test_simple_xml(self, chunk_size=None, flush=False):
          self.assert_event_tags(parser, [('end', 'root')])
          self.assertIsNone(parser.close())
  
@@ -36,7 +36,7 @@ index 6da7c34..fcf5085 100644
      def test_simple_xml_chunk_5(self):
          self.test_simple_xml(chunk_size=5, flush=True)
  
-@@ -1827,6 +1829,7 @@ def test_flush_reparse_deferral_enabled(self):
+@@ -1855,6 +1857,7 @@ def test_flush_reparse_deferral_enabled(self):
  
          self.assert_event_tags(parser, [('end', 'doc')])
  
