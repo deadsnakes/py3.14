@@ -15,7 +15,7 @@ Forwarded: no
  3 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/Lib/sysconfig/__init__.py b/Lib/sysconfig/__init__.py
-index 85b3ca9..24f0427 100644
+index cd872d6..4f76765 100644
 --- a/Lib/sysconfig/__init__.py
 +++ b/Lib/sysconfig/__init__.py
 @@ -398,7 +398,7 @@ def _get_sysconfigdata_name():
@@ -45,10 +45,10 @@ index 6716b98..b3f5c3d 100644
  	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
  	@ # If app store compliance has been configured, apply the patch to the
 diff --git a/configure.ac b/configure.ac
-index c2abb9f..9189608 100644
+index 438a3db..e213eb9 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -164,7 +164,7 @@ AC_ARG_WITH([build-python],
+@@ -170,7 +170,7 @@ AC_ARG_WITH([build-python],
      dnl Build Python interpreter is used for regeneration and freezing.
      ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
      PYTHON_FOR_FREEZE="$with_build_python"
