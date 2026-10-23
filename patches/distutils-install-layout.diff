@@ -200,7 +200,7 @@ index f8c6f37..d950ad4 100644
          else:
              # other platforms
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index ca46f1a..7adb3c3 100644
+index 3ae08eb..cacd8fa 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -168,7 +168,7 @@ WHEEL_PKG_DIR=	@WHEEL_PKG_DIR@
@@ -213,7 +213,7 @@ index ca46f1a..7adb3c3 100644
  CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(LDVERSION)
  
 diff --git a/Modules/getpath.py b/Modules/getpath.py
-index ce9a40e..ca56a01 100644
+index cf59ae3..429042b 100644
 --- a/Modules/getpath.py
 +++ b/Modules/getpath.py
 @@ -177,9 +177,9 @@
